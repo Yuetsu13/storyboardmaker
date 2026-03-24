@@ -9,6 +9,8 @@ export const ALL_COLUMNS = [
   { id: 'content', label: '内容' },
   { id: 'scene', label: 'シーン' },
   { id: 'location', label: 'ロケーション' },
+  { id: 'onscreenText', label: '画面上テキスト' },
+  { id: 'narration', label: 'ナレーション' },
   { id: 'action', label: '動き' },
   { id: 'duration', label: '尺(s)' },
   { id: 'shootingDate', label: '撮影日' },
@@ -28,6 +30,8 @@ export const COLUMN_WIDTH_RATIOS = {
   /** ロケーション列と同程度の幅 */
   scene: 1.5,
   location: 1.5,
+  onscreenText: 1.5,
+  narration: 2.25,
   action: 1.5,
   /** ロケーション列と同程度の幅 */
   duration: 1.5,
@@ -118,6 +122,10 @@ export function getRowFieldValue(row, columnId, context) {
       return row.scene ?? ''
     case 'location':
       return row.location ?? ''
+    case 'onscreenText':
+      return row.onscreenText ?? ''
+    case 'narration':
+      return row.narration ?? ''
     case 'action':
       return row.action ?? ''
     case 'duration':

@@ -62,6 +62,8 @@ function emptyRow() {
     content: '',
     scene: '',
     location: '',
+    onscreenText: '',
+    narration: '',
     action: '',
     duration: '',
     shootingDate: '',
@@ -226,6 +228,26 @@ function SortableRow({
               value={row.location ?? ''}
               onChange={(v) => onUpdate(row.id, { location: v })}
               options={locationOptions}
+            />
+          </div>
+        )
+      case 'onscreenText':
+        return (
+          <div className="cell cell-description" key="onscreenText">
+            <textarea
+              className="cell-textarea"
+              value={row.onscreenText ?? ''}
+              onChange={(e) => onUpdate(row.id, { onscreenText: e.target.value })}
+            />
+          </div>
+        )
+      case 'narration':
+        return (
+          <div className="cell cell-description" key="narration">
+            <textarea
+              className="cell-textarea"
+              value={row.narration ?? ''}
+              onChange={(e) => onUpdate(row.id, { narration: e.target.value })}
             />
           </div>
         )

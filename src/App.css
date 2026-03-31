@@ -126,9 +126,24 @@ body {
   border-color: #007aff;
 }
 
-.btn-add:hover {
+.btn-add:hover:not(:disabled) {
   background: #0066dd;
   border-color: #0066dd;
+}
+
+/* 無効時は Excel／PowerPoint と同様：見た目は通常のまま、カーソルは default */
+.btn-add:disabled {
+  opacity: 1;
+  background: #007aff;
+  color: #fff;
+  border-color: #007aff;
+  cursor: default;
+}
+
+.btn.btn-add:hover:disabled {
+  background: #007aff;
+  border-color: #007aff;
+  color: #fff;
 }
 
 .btn-export {
@@ -137,9 +152,52 @@ body {
   border-color: #34c759;
 }
 
-.btn-export:hover {
+.btn-export:hover:not(:disabled) {
   background: #2db34d;
   border-color: #2db34d;
+}
+
+/* 未入力時も見た目は非選択（通常）と同じ。操作だけ不可（PowerPointで保存と同じ） */
+.btn-export:disabled {
+  opacity: 1;
+  background: #34c759;
+  color: #fff;
+  border-color: #34c759;
+  cursor: default;
+}
+
+/* .btn:hover より優先し、無効時にホバーでグレーにならないようにする */
+.btn.btn-export:hover:disabled {
+  background: #34c759;
+  border-color: #34c759;
+  color: #fff;
+}
+
+/* PowerPoint 寄りのオレンジ（NA原稿の保存）。btn-export と同様に通常＋ホバーのみ */
+.btn-powerpoint {
+  background: #d24726;
+  color: #fff;
+  border-color: #b83b1f;
+}
+
+.btn-powerpoint:hover:not(:disabled) {
+  background: #b7472a;
+  border-color: #963522;
+}
+
+/* 未入力時も見た目は非選択（通常）と同じ。操作だけ不可 */
+.btn-powerpoint:disabled {
+  opacity: 1;
+  background: #d24726;
+  color: #fff;
+  border-color: #b83b1f;
+  cursor: default;
+}
+
+.btn.btn-powerpoint:hover:disabled {
+  background: #d24726;
+  border-color: #b83b1f;
+  color: #fff;
 }
 
 .btn-secondary {
@@ -149,6 +207,541 @@ body {
 
 .btn-secondary:hover {
   background: #f0f0f0;
+}
+
+.btn-callsheet-create {
+  background: #ff8a00;
+  color: #fff;
+  border-color: #ff8a00;
+}
+
+.btn-callsheet-create:hover:not(:disabled) {
+  background: #f57c00;
+  border-color: #f57c00;
+}
+
+.btn-callsheet-create:disabled {
+  opacity: 1;
+  background: #ff8a00;
+  color: #fff;
+  border-color: #ff8a00;
+  cursor: default;
+}
+
+.app--home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--body-pad-y));
+  min-height: calc(100dvh - var(--body-pad-y));
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.home-card {
+  width: min(560px, 100%);
+  padding: 36px 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+}
+
+.home-title {
+  margin: 0 0 22px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #222;
+  line-height: 1.2;
+}
+
+.home-subtitle {
+  margin: 0 0 28px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ホーム：白地・枠線のみ（青なし）、適度なタップ領域 */
+.home-actions .btn-home-action {
+  padding: 12px 18px;
+  min-height: 46px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  border-color: #ccc;
+  color: #333;
+}
+
+.home-actions .btn-home-action:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.editor-tips {
+  margin-top: 18px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.editor-tips__title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7f8ea3;
+  line-height: 1.2;
+}
+
+.editor-tips__list {
+  margin: 0;
+  padding-left: 24px;
+  color: #8d9ab0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.callsheet-page {
+  max-width: 1600px;
+}
+
+.callsheet-container {
+  border: 1px solid #9fb8cb;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.callsheet-header,
+.callsheet-row {
+  display: grid;
+  /* 列順: [削除] [TIME] [スケジュール（中に画像）] [備考] */
+  grid-template-columns: 36px 84px minmax(300px, 2fr) minmax(180px, 1fr);
+}
+
+.callsheet-h-cell {
+  padding: 8px 10px;
+  border-right: 1px solid #6f89a0;
+  background: #d9e8f6;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2f3b46;
+}
+
+.callsheet-h-cell:last-child {
+  border-right: 0;
+}
+
+.callsheet-h-delete {
+  background: #d9e8f6;
+}
+
+.callsheet-h-time {
+  text-align: center;
+}
+
+.callsheet-row {
+  border-top: 1px solid #9fb8cb;
+  height: 250px;
+  min-height: 250px;
+  background: #fff;
+}
+
+/* grid 内で子要素の min-content が効いて列幅が揺れるのを防ぐ */
+.callsheet-row > * {
+  min-width: 0;
+}
+
+/* スケジュール列：レイアウト固定（行/セルの高さを変えず、画像追加でも揺れない） */
+.callsheet-schedule-cell {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 0;
+  padding: 18px 18px 14px;
+  overflow: hidden; /* 行からはみ出さない */
+}
+
+.callsheet-schedule-text {
+  flex: 0 0 20%;
+  height: 20%;
+  border-right: 0 !important;
+  resize: none;
+  overflow: auto;
+  min-height: 0 !important;
+  padding: 0;
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 500;
+  color: #111;
+}
+
+.callsheet-schedule-images {
+  flex: 0 0 80%;
+  display: flex;
+  height: 80%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  margin-top: 0;
+  min-width: 0;
+}
+
+.callsheet-schedule-image-cell {
+  flex: 0 0 auto;
+  height: 200px; /* 16:9枠：縦200 */
+  aspect-ratio: 16 / 9;
+  min-height: 200px !important;
+  padding: 0 !important;
+  border-right: 0 !important;
+  background: #fff;
+  border: 1px solid #111;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.callsheet-schedule-image-cell + .callsheet-schedule-image-cell {
+  border-left: 0;
+}
+
+.callsheet-delete-btn {
+  margin: 8px auto 0;
+}
+
+.callsheet-input,
+.callsheet-image-cell {
+  width: 100%;
+  min-height: 100%;
+  border: 0;
+  border-right: 1px solid #9fb8cb;
+  background: transparent;
+  padding: 8px;
+  font: inherit;
+  resize: none;
+}
+
+.callsheet-input:focus,
+.callsheet-image-cell:focus-within {
+  outline: 2px solid #99b9d8;
+  outline-offset: -2px;
+}
+
+.callsheet-time {
+  text-align: center;
+  font-weight: 600;
+}
+
+.callsheet-note {
+  border-right: 0;
+}
+
+.callsheet-image-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.callsheet-image-wrap {
+  position: relative;
+  width: 100%;
+  height: auto; /* 16:9 を崩さない */
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* 香盤表: 画像を入れても行サイズがブレないよう、クロップ枠を行の高さに固定 */
+.callsheet-image-cell .image-crop-wrap {
+  height: 100%;
+}
+
+.callsheet-image-cell .image-crop-frame {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: 100%;
+}
+
+/* スケジュール内の画像枠は「枠いっぱいに16:9」 */
+.callsheet-schedule-image-cell .image-crop-wrap {
+  height: 100%;
+}
+
+.callsheet-schedule-image-cell .image-crop-frame {
+  width: 100%;
+  height: 100%;
+}
+
+.callsheet-cut-overlay {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100% - 16px);
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.44);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.2;
+  min-height: 22px; /* 表示→入力切替でも高さがブレないよう固定 */
+  cursor: text;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.callsheet-cut-label {
+  opacity: 0.95;
+  font-weight: 600;
+}
+
+.callsheet-cut-value {
+  /* 入力時に input の幅が出てブレるのを防ぐ */
+  min-width: 0;
+  display: inline-block;
+}
+
+.callsheet-cut-input {
+  width: auto;
+  min-width: 0;
+  max-width: 40vw;
+  border: 0;
+  border-radius: 3px;
+  padding: 0 3px;
+  font: inherit;
+  color: #fff;
+  background: transparent; /* オーバーレイ背景はそのまま、入力の背景でサイズが変わらないように */
+  line-height: 1.2;
+  height: 16px;
+  outline: none;
+}
+
+.callsheet-cut-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.callsheet-cut-input:focus,
+.callsheet-cut-input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.callsheet-image-placeholder {
+  color: #888;
+  font-size: 12px;
+}
+
+.na-page {
+  max-width: 1600px;
+}
+
+.na-empty {
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #666;
+}
+
+.na-manual-actions {
+  margin-bottom: 0;
+}
+
+.na-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.na-columns {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  overflow-x: visible;
+  padding-bottom: 0;
+}
+
+.na-columns--rtl {
+  flex-direction: row-reverse;
+}
+
+.na-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 絵コンテの「行を追加」と同じクラスを流用。一覧の最下部にのみ置く（sticky は使わない） */
+.na-pages .na-add-page-bar {
+  position: static;
+  z-index: auto;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.na-sheet {
+  border: 1px solid #88a8be;
+  border-radius: 6px;
+  background: #fff;
+  padding: 12px 10px 8px;
+  height: 430px;
+  box-sizing: border-box;
+}
+
+.na-sheet__columns {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  height: 100%;
+}
+
+.na-sheet__columns.na-columns--rtl {
+  flex-direction: row-reverse;
+}
+
+.na-column {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+/* 列境界線は1本だけ描画（ダブル線を防ぐ） */
+.na-column + .na-column {
+  border-left: 1px solid #9db6c7;
+}
+
+.na-sheet__columns.na-columns--rtl .na-column + .na-column {
+  border-left: 0;
+  border-right: 1px solid #9db6c7;
+}
+
+.na-column--empty {
+  min-height: 0;
+}
+
+/* 未活性の空欄：クリックでその枠だけ入力可能になる */
+.na-column--add-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  padding: 10px 8px 6px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.na-column--add-slot:hover {
+  background: rgba(0, 122, 255, 0.06);
+}
+
+.na-column--add-slot:focus {
+  outline: none;
+}
+
+.na-column--add-slot:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: -2px;
+}
+
+.na-column-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  width: 100%;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.na-column-footer--empty {
+  justify-content: flex-end;
+}
+
+.na-index {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  color: #222;
+}
+
+.na-time {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+  width: 100%;
+}
+
+.na-time-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.na-vertical {
+  writing-mode: vertical-rl;
+  /* 英数字も日本語と同様に回転させず、1字ずつ縦に並べる */
+  text-orientation: upright;
+  line-height: 1.7;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  font-size: 15px;
+}
+
+.na-vertical-input {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  padding: 8px;
+  resize: none;
 }
 
 /* 列の選択：編集画面と同じ最大幅で、右パネルの列名が一行に収まりやすくする */

@@ -1,6 +1,6 @@
-# 絵コンテメーカー（16:9） (Ekonte Maker)
+# 映像制作Toolbox (Toolbox for Movie Makers)
 
-Web ベースの絵コンテ（ストーリーボード）ツールです。
+Web ベースの映像制作ツールボックスです。
 
 ## 必要な環境
 

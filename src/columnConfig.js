@@ -15,6 +15,7 @@ export const ALL_COLUMNS = [
   { id: 'duration', label: '尺(s)' },
   { id: 'shootingDate', label: '撮影日' },
   { id: 'model', label: 'モデル' },
+  { id: 'costume', label: '衣装' },
   { id: 'elapsedTime', label: '時間経過' },
   { id: 'note', label: '備考' },
 ]
@@ -38,6 +39,7 @@ export const COLUMN_WIDTH_RATIOS = {
   /** シーン列と同程度 */
   shootingDate: 1.5,
   model: 1,
+  costume: 1,
   elapsedTime: 1,
   note: 1,
 }
@@ -134,6 +136,8 @@ export function getRowFieldValue(row, columnId, context) {
       return row.shootingDate ?? ''
     case 'model':
       return row.model ?? ''
+    case 'costume':
+      return row.costume ?? ''
     case 'elapsedTime':
       if (
         context?.rows &&

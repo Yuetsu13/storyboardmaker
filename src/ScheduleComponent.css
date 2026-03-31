@@ -1,0 +1,365 @@
+/* 香盤表メーカー：絵コンテメーカー（.app / .grid-container）と同系の白背景・枠線 */
+
+.schedule-page {
+  /* .app の max-width:1470px に合わせ、列幅計算の基準も統一 */
+  --schedule-editor-base-width: 1470px;
+  --schedule-time-col-w: calc(var(--schedule-editor-base-width) * 0.1);
+  --schedule-note-col-w: calc(var(--schedule-editor-base-width) * 0.15);
+}
+
+/* 絵コンテから遷移したときのみ：カットプール（香盤表の表本体のスタイルは変えない） */
+.schedule-storyboard-source {
+  margin-bottom: 16px;
+  padding: 14px 16px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.schedule-storyboard-source__title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.schedule-storyboard-source__hint {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #666;
+}
+
+.schedule-storyboard-source__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+}
+
+.schedule-storyboard-source-item {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  flex: 0 0 auto;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: grab;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.schedule-storyboard-source-item:active {
+  cursor: grabbing;
+}
+
+.schedule-storyboard-source-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.schedule-cut-overlay--storyboard-pool {
+  pointer-events: none;
+  cursor: inherit;
+}
+
+/* 絵コンテの .grid-container に相当：編集エリアを白でまとめる */
+.schedule-editor-panel {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.schedule-col--time {
+  width: var(--schedule-time-col-w);
+  min-width: var(--schedule-time-col-w);
+  max-width: var(--schedule-time-col-w);
+}
+
+.schedule-col--drag {
+  width: 36px;
+  min-width: 36px;
+  max-width: 36px;
+}
+
+.schedule-col--note {
+  width: var(--schedule-note-col-w);
+  min-width: var(--schedule-note-col-w);
+  max-width: var(--schedule-note-col-w);
+}
+
+.schedule-col--schedule {
+  width: auto;
+}
+
+.schedule-table thead {
+  background: #f8f8f8;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid #eee;
+  padding: 8px;
+  vertical-align: top;
+  background: #fff;
+}
+
+.schedule-table th {
+  background: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f3b46;
+  min-height: 44px;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px 8px;
+}
+
+.schedule-td {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.schedule-time-cell {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.schedule-td--drag,
+.schedule-th--drag {
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.schedule-td--drag {
+  background: #fff;
+}
+
+.schedule-row-drag-handle {
+  width: 100%;
+  min-height: 44px;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #777;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -1px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-row-drag-handle:hover {
+  background: #f8f8f8;
+  color: #555;
+}
+
+.schedule-row-dragging {
+  opacity: 0.85;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.schedule-time-cell .schedule-time-select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+}
+
+.schedule-time-duration {
+  flex: 1 1 100%;
+  margin-left: 28px; /* 削除ボタンの右端に揃える */
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #8a94a3;
+  user-select: none;
+}
+
+.schedule-time-select {
+  padding: 6px 32px 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M2.5 4.5 6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  font: inherit;
+  font-size: 14px;
+  color: #111;
+  cursor: pointer;
+  appearance: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.schedule-time-select:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+}
+
+.schedule-time-select:hover:not(:disabled) {
+  border-color: #bbb;
+}
+
+.schedule-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.schedule-textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  resize: none;
+  min-height: 60px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.schedule-schedule-combobox {
+  position: relative;
+  width: 100%;
+}
+
+.schedule-textarea--note {
+  min-height: 0;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  resize: none;
+}
+
+.schedule-td--note {
+  padding: 0 !important;
+  position: relative;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 100px;
+  margin-top: 8px;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  box-sizing: border-box;
+  align-content: flex-start;
+  background: #fff;
+}
+
+.image-container:empty::before {
+  content: 'ここに画像をドラッグ';
+  color: #999;
+  font-weight: 600;
+  user-select: none;
+}
+
+.image-item {
+  width: 120px;
+  height: 80px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.schedule-image-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.schedule-image-remove-btn:hover {
+  background: rgba(180, 0, 0, 0.8);
+}
+
+.image-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: grab;
+  border-radius: 4px;
+  display: block;
+}
+
+.schedule-cut-overlay {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  border: 0;
+  padding: 6px 10px;
+  background: rgba(120, 120, 120, 0.85);
+  border-radius: 4px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.schedule-cut-overlay__label {
+  font-weight: 800;
+}
+
+.schedule-cut-overlay__value {
+  min-width: 0;
+  display: inline-block;
+}
+
+.schedule-cut-input {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  outline: none;
+  min-width: 0;
+  padding: 0 3px;
+  height: 16px;
+  line-height: 16px;
+}
